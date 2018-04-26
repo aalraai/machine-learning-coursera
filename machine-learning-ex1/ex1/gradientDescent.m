@@ -18,21 +18,18 @@ for iter = 1:num_iters
     %
 
 
+    theta0 = theta(1) - alpha * sum((X * theta - y))/(m);
+    theta1 = theta(2) - alpha * sum((X * theta - y).*X(:,2))/(m);
 
-theta0 = theta(1) - alpha * sum((X * theta - y).*X(:,1))/(m);
-theta1 = theta(2) - alpha * sum((X * theta - y).*X(:,2))/(m);
+    theta = [theta0; theta1];
 
-theta = [theta0; theta1];
-
-% A*B matrix multiplication
-% A.*B element-wise multiplication
 
 
     % ============================================================
 
     % Save the cost J in every iteration
     J_history(iter) = computeCost(X, y, theta);
-    %disp('J(theta): '); disp(J_history(iter));
+
 end
 
 end
