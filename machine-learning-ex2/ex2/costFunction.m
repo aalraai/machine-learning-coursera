@@ -7,7 +7,7 @@ function [J, grad] = costFunction(theta, X, y)
 % Initialize some useful values
 m = length(y); % number of training examples
 
-% You need to return the following variables correctly 
+% You need to return the following variables correctly
 J = 0;
 grad = zeros(size(theta));
 
@@ -20,7 +20,19 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
+J =  (1/m) * sum(-y' * log(sigmoid(X*theta)) - (1 - y)'*log(1 - sigmoid(X*theta)));
 
+%size(X,2) = 3
+
+% At first step sigmoid(X*theta) returns a 100 x 1 vector such that all elements
+% has value 0.5, since theta has only zeros in each column. When we substract y from sigmoid(X*theta)
+% we obtain a 100 x 1 vector such that each element has vlaue +- 0.5 depends on the entries of y.
+%
+% repmat Form a block matrix of size M by N, with a copy of matrix A as each element, i.e.
+% we obtain a 100 x 3 Matrix, where each row is a copy of sigmoid(X*theta) - y.
+
+
+grad = (1/m) * sum(X.* repmat((sigmoid(X*theta) - y), 1, size(X,2)));
 
 
 
