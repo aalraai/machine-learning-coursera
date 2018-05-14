@@ -23,8 +23,20 @@ p = zeros(size(X, 1), 1);
 
 % we have to compute a1, a2, a3 with the help of Theta1 and Theta2.
 
-a1 = X'; %input input layer
-a2 = 
+%size(Theta1) = 25 x 401, size(Theta2) = 10 x 26
+
+
+a1 = X'; % input layer
+
+ % hidden layer / size(a1, 2) = 5000; size([ones(1, 5000) ; a1]) = 401 x 5000
+a2 = sigmoid(Theta1 * [ones(1, size(a1, 2)); a1]);
+
+% output layer / size([ones(1, size(a1, 2)); a1]) = 26 x 5000
+a3 = sigmoid(Theta2 * [ones(1, size(a2, 2)); a2]);
+
+[val, idx] = max(a3);
+
+p = idx';
 
 
 
